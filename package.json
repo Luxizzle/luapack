@@ -1,7 +1,7 @@
 {
   "name": "luapack",
   "version": "0.0.1",
-  "description": "packaging multiple lua files into one file",
+  "description": "Packaging multiple lua files into one file",
   "main": "src/index.js",
   "scripts": {
     "test": "node bin/luapack -o test/packed.lua build test/test.lua"
