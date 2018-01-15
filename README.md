@@ -20,7 +20,7 @@ stuff i need to do:
 
 ## Usage
 
-Install with npm: `npm i -g Luxizzle/luapack`
+Install with npm: `npm i -g luapack`
 
 ### Build
 
