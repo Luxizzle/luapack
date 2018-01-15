@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+const package = require('../package.json')
+const program = require('commander')
+const luamin = require('luamin')
+const fs = require('fs')
+const path = require('path')
+const Listr = require('listr')
+
+const luapack = require('../src/index')
+
+program
+  .version(package.version)
+  .usage('<command> [...arguments]')
+
+program
+  .command('build <input>')
+  .description('builds package')
+  .option('-o, --output <name>', 'output file name [packed.lua]', 'packed.lua')
+  .option('-m, --minify', 'Minify using luamin')
+  .action(function(input, options) {
+
+    const tasks = new Listr([
+      {
+        title: 'Pack files',
+        task: (ctx, task) => {
+          ctx.outputData = luapack.build(ctx.input)
+        }
+      },
+      {
+        title: 'Minify output',
+        enabled: ctx => ctx.options.minify === true,
+        task: (ctx, task) => {
+          ctx.outputData = luamin.minify(ctx.outputData)
+        }
+      },
+      {
+        title: 'Write output to file',
+        task: (ctx, task) => {
+          return fs.writeFileSync(ctx.options.output || 'packed.lua', ctx.outputData, 'utf8')
+        }
+      }
+    ])
+
+    tasks.run({
+      input, options
+    })
+  })
+
+
+program.parse(process.argv)

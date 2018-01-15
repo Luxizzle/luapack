@@ -1,0 +1,32 @@
+{
+  "name": "luapack",
+  "version": "0.0.1",
+  "description": "packaging multiple lua files into one file",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node bin/luapack -o test/packed.lua build test/test.lua"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luxizzle/luapack.git"
+  },
+  "keywords": [
+    "lua"
+  ],
+  "bin": {
+    "luapack": "src/luapack"
+  },
+  "author": "Lux Pandora (Luxizzle)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luxizzle/luapack/issues"
+  },
+  "homepage": "https://github.com/Luxizzle/luapack#readme",
+  "dependencies": {
+    "commander": "^2.13.0",
+    "fs-extra": "^5.0.0",
+    "listr": "^0.13.0",
+    "luamin": "^1.0.4",
+    "md5-hex": "^2.0.0"
+  }
+}
