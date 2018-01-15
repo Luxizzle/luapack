@@ -14,7 +14,7 @@
     "lua"
   ],
   "bin": {
-    "luapack": "src/luapack"
+    "luapack": "bin/luapack"
   },
   "author": "Lux Pandora (Luxizzle)",
   "license": "MIT",
