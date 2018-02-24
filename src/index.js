@@ -20,6 +20,7 @@ function build(mainFile) {
 
   function parseFile(file, hash) {
     const inputData = fs.readFileSync(file, 'utf8')
+    let mainPath = path.dirname(file)
 
     packages.set(hash, true) // reserve package
 
