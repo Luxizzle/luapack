@@ -1,6 +1,6 @@
 {
   "name": "luapack",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Packaging multiple lua files into one file",
   "main": "src/index.js",
   "scripts": {
