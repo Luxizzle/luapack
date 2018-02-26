@@ -34,3 +34,6 @@ options:
   -m, --minify                          Minify output using luamin
 ```
 
+## Related
+
+- [gulp-luapack](https://github.com/Luxizzle/gulp-luapack) - A gulp plugin for luapack
