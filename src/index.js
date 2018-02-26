@@ -3,7 +3,11 @@ const path = require('path')
 const md5Hex = require('md5-hex')
 
 const requireTemplate = fs.readFileSync(__dirname+'/require.lua', 'utf8')
-const loadTemplate = (hash, data) => `proxy_package.packages['${hash}'] = function()\n${data}\nend;\n\n`
+const loadTemplate = (hash, data, filePath) => `proxy_package.packages['${hash}'] = function()
+  local __hash = '${hash}'
+
+  ${data}
+end;\n`
 
 module.exports.build = build
 
@@ -19,8 +23,13 @@ function build(mainFile) {
   var packages = new Map()
 
   function parseFile(file, hash) {
-    const inputData = fs.readFileSync(file, 'utf8')
+    let fileName = path.basename(file, '.lua')
     let mainPath = path.dirname(file)
+    const inputData = fs.readFileSync(path.format({
+      dir: mainPath,
+      name: fileName,
+      ext: '.lua'
+    }), 'utf8')
 
     packages.set(hash, true) // reserve package
 
