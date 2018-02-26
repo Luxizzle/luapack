@@ -3,15 +3,15 @@ const path = require('path')
 const md5Hex = require('md5-hex')
 
 const requireTemplate = fs.readFileSync(__dirname+'/require.lua', 'utf8')
-const loadTemplate = (hash, data, filePath) => `proxy_package.packages['${hash}'] = function()
-  local __hash = '${hash}'
+const loadTemplate = (hash, data, filePath) => {
+  return `proxy_package.packages['${hash}'] = function()
+    local __hash = '${hash}'
 
-  ${data}
-end;\n`
+    ${data}
+  end;\n`
+}
 
 module.exports.build = build
-
-// maybe parse stuff with luaparse? idk...
 
 const requireRegexp = /require\(?(?:"|')([^"']+)(?:"|')\)?/g
 
@@ -59,4 +59,3 @@ function build(mainFile) {
 
   return outputData
 }
-
