@@ -25,16 +25,30 @@ function build(mainFile) {
   function parseFile(file, hash) {
     let fileName = path.basename(file, '.lua')
     let mainPath = path.dirname(file)
-    const inputData = fs.readFileSync(path.format({
+    let formattedPath = path.format({
       dir: mainPath,
       name: fileName,
       ext: '.lua'
-    }), 'utf8')
+    })
+    let inputData = ''
+    if (fs.existsSync(formattedPath)) {
+      inputData = fs.readFileSync(formattedPath, 'utf8')
+    }
+    else {
+      throw new Error('require() file not found: ' + file + ' ' + hash)
+    }
 
     packages.set(hash, true) // reserve package
 
     const outputData = inputData.replace(requireRegexp, (_, match) => {
       var reqPath = path.resolve(mainPath,match)
+      var extname = path.extname(reqPath)
+
+      // Port the module name to a path name if needed.
+      if (extname != '.lua') {
+        reqPath = reqPath.replace(/\./g, '/') + '.lua'
+      }
+
       var reqHash = md5Hex(reqPath)
 
       if (!packages.has(reqHash)) {
